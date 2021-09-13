@@ -3,7 +3,7 @@ const express   = require('express')
 
 const testRouter = require('./testRoute')
 
-const port = 8006 
+const port = process.env.PORT || 8006 
 const app  = express()
 
 app.use(express.json())
