@@ -22,11 +22,12 @@ testRouter.route('/').get(async(req,res)=>{
 
 })
 
-testRouter.route('/:id').delete(async(req,res)=>{
+testRouter.route('/?').delete(async(req,res)=>{
 
-    const { id } = req.body
+    const { id } = req.query
 
-    return await db('workeradmin').where(id).delete()
+    return await db('workeradmin').where('id',id)
+                                  .delete()
                                   .then(_      => res.status(204).json())
                                   .catch(err   => res.status(500).json(err) )    
 
