@@ -42,6 +42,16 @@ module.exports = app => {
                         .catch(err   => res.status(500).json(err) )
     }
 
+    const deleteData = async(req,res) => {
+        const { id } = req.query
 
-return { getData , postData , putData }
+         return await db('workeradmin')
+                        .where('id',id)
+                        .delete()
+                        .then(_      => res.status(204).json())
+                        .catch(err   => res.status(500).json(err) )    
+    }
+
+
+return { getData , postData , putData , deleteData }
 }
