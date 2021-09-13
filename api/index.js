@@ -2,7 +2,7 @@ const db = require('../db/db')
 
 module.exports = app => {
 
-    const postData = async(req,res) => {
+    const getData = async(req,res) => {
         await db('workeradmin')
                     .select(['workername',
                              'workerjob',
@@ -13,5 +13,5 @@ module.exports = app => {
     }
 
 
-return { postData }
+return { getData }
 }

@@ -1,3 +1,3 @@
 module.exports = app => {
-    app.get('/',app.api.index.postData)
+    app.get('/',app.api.index.getData)
 }
