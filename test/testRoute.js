@@ -14,7 +14,7 @@ testRouter.route('/').get(async(req,res)=>{
 
     const { workername, workerjob, workersalary, workersector } = req.body
 
-    if( !workername, !workerjob, !workersalary, !workersector ) return res.status(400).json({msg: " The fields value can't be empty! "})
+    if( !workername || !workerjob || !workersalary || !workersector ) return res.status(400).json({msg: " The fields value can't be empty! "})
    
     return await db('workeradmin').insert({ workername, workerjob, workersalary, workersector })
                                   .then(_      => res.status(200).json({msg: 'data inserted with success!'}))
