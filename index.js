@@ -12,6 +12,6 @@ consign()
     .then('./routes')
     .into(app)
 
-app.db = db
+//app.db = db
 
 app.listen(port,()=>console.log(`online into port: ${port}`))
