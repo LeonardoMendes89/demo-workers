@@ -15,11 +15,12 @@ module.exports = app => {
     const getDataById = async(req,res) => {
         const { id } = req.params
 
-    await db('workeradmin').where('id',id)
-                    .select([  'workername',
-                                'workerjob',
-                                'workersalary',
-                                'workersector'])
+        await db('workeradmin')
+                    .where('id',id)
+                    .select(['workername',
+                             'workerjob',
+                             'workersalary',
+                             'workersector'])
                     .then(data   => res.status(200).json(data))
                     .catch(err   => res.status(500).json(err) )
     }
@@ -28,11 +29,11 @@ module.exports = app => {
         const { workername } = req.params
 
         await db('workeradmin')
-                        .where(' workername', workername)
-                        .select([  'workername',
-                                    'workerjob',
-                                    'workersalary',
-                                    'workersector'])
+                        .where('workername', workername)
+                        .select(['workername',
+                                 'workerjob',
+                                 'workersalary',
+                                 'workersector'])
                         .then(data   => res.status(200).json(data))
                         .catch(err   => res.status(500).json(err) )
     }
