@@ -12,6 +12,18 @@ module.exports = app => {
                     .catch(err   => res.status(500).json(err) )
     }
 
+    const getDataById = async(req,res) => {
+        const { id } = req.params
+
+    await db('workeradmin').where('id',id)
+                    .select(['workername',
+                                'workerjob',
+                                'workersalary',
+                                'workersector'])
+                    .then(data   => res.status(200).json(data))
+                    .catch(err   => res.status(500).json(err) )
+    }
+
     const postData = async(req,res) => {
         const { workername, workerjob, workersalary, workersector } = req.body
 
@@ -23,7 +35,7 @@ module.exports = app => {
                                   workersalary, 
                                   workersector })
                         .then(_      => res.status(201).json({msg: 'data inserted with success!'}))
-                        .catch(err   => res.status(500).json(err) )
+                        .catch(err   => res.status(400).json(err) )
     }
 
     const putData = async(req,res) => {
@@ -39,7 +51,7 @@ module.exports = app => {
                                   workersalary, 
                                   workersector })
                         .then(_      => res.status(201).json({msg: 'data updated with success!'}))
-                        .catch(err   => res.status(500).json(err) )
+                        .catch(err   => res.status(400).json(err) )
     }
 
     const deleteData = async(req,res) => {
@@ -49,9 +61,9 @@ module.exports = app => {
                         .where('id',id)
                         .delete()
                         .then(_      => res.status(204).json())
-                        .catch(err   => res.status(500).json(err) )    
+                        .catch(err   => res.status(400).json(err) )    
     }
 
 
-return { getData , postData , putData , deleteData }
+return { getData , getDataById , postData , putData , deleteData }
 }
