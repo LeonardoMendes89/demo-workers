@@ -56,5 +56,19 @@ testRouter.route('/:id').get(async(req,res)=>{
 
 })
 
+testRouter.route('/:name').get(async(req,res)=>{
+ 
+    const { workername } = req.params
+
+    await db('workeradmin').where(' workername', workername)
+                    .select([  'workername',
+                                'workerjob',
+                                'workersalary',
+                                'workersector'])
+                    .then(data   => res.status(200).json(data))
+                    .catch(err   => res.status(500).json(err) )
+
+})
+
 module.exports = testRouter
 

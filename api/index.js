@@ -16,12 +16,25 @@ module.exports = app => {
         const { id } = req.params
 
     await db('workeradmin').where('id',id)
-                    .select(['workername',
+                    .select([  'workername',
                                 'workerjob',
                                 'workersalary',
                                 'workersector'])
                     .then(data   => res.status(200).json(data))
                     .catch(err   => res.status(500).json(err) )
+    }
+
+    const getDataByName = async(req,res) => {
+        const { workername } = req.params
+
+        await db('workeradmin')
+                        .where(' workername', workername)
+                        .select([  'workername',
+                                    'workerjob',
+                                    'workersalary',
+                                    'workersector'])
+                        .then(data   => res.status(200).json(data))
+                        .catch(err   => res.status(500).json(err) )
     }
 
     const postData = async(req,res) => {
@@ -65,5 +78,5 @@ module.exports = app => {
     }
 
 
-return { getData , getDataById , postData , putData , deleteData }
+return { getData , getDataById , getDataByName , postData , putData , deleteData }
 }
