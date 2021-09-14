@@ -18,7 +18,7 @@ testRouter.route('/').get(async(req,res)=>{
    
     return await db('workeradmin').insert({ workername, workerjob, workersalary, workersector })
                                   .then(_      => res.status(201).json({msg: 'data inserted with success!'}))
-                                  .catch(err   => res.status(500).json(err) )
+                                  .catch(err   => res.status(400).json(err) )
 
 })
 
@@ -29,7 +29,7 @@ testRouter.route('/?').delete(async(req,res)=>{
     return await db('workeradmin').where('id',id)
                                   .delete()
                                   .then(_      => res.status(204).json())
-                                  .catch(err   => res.status(500).json(err) )    
+                                  .catch(err   => res.status(400).json(err) )    
 
 }).put(async(req,res)=>{
 
@@ -41,7 +41,18 @@ testRouter.route('/?').delete(async(req,res)=>{
     return await db('workeradmin').where('id',id)
                                   .update({ workername, workerjob, workersalary, workersector })
                                   .then(_      => res.status(201).json({msg: 'data updated with success!'}))
-                                  .catch(err   => res.status(500).json(err) )
+                                  .catch(err   => res.status(400).json(err) )
+
+})
+
+testRouter.route('/:id').get(async(req,res)=>{
+
+    const { id } = req.params
+
+    await db('workeradmin').where('id',id)
+                           .select(['workername','workerjob','workersalary','workersector'])
+                           .then(data   => res.status(200).json(data))
+                           .catch(err   => res.status(500).json(err) )
 
 })
 
